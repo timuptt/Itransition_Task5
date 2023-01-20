@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeUserData.Web", "FakeUserData.Web\FakeUserData.Web.csproj", "{1FDE0599-848C-4981-A732-F720B58D028D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeUserData.ApplicationCore", "FakeUserData.ApplicationCore\FakeUserData.ApplicationCore.csproj", "{7CAB268E-280B-4AC7-A4C5-BC5B87DDB54D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FDE0599-848C-4981-A732-F720B58D028D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FDE0599-848C-4981-A732-F720B58D028D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FDE0599-848C-4981-A732-F720B58D028D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FDE0599-848C-4981-A732-F720B58D028D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAB268E-280B-4AC7-A4C5-BC5B87DDB54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAB268E-280B-4AC7-A4C5-BC5B87DDB54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAB268E-280B-4AC7-A4C5-BC5B87DDB54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAB268E-280B-4AC7-A4C5-BC5B87DDB54D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
