@@ -1,8 +1,33 @@
-﻿@{
+﻿@model IEnumerable<FakeUserData.ApplicationCore.Models.UserData>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table class="table table-bordered">
+        <thead>
+        
+        </thead>
+        <tbody>
+            @foreach (var userData in Model)
+            {
+                <tr>
+                    <td>
+                        @userData.Id
+                    </td>
+                    <td>
+                        @userData.FullName
+                    </td>
+                    <td>
+                        @userData.Address
+                    </td>
+                    <td>
+                        @userData.PhoneNumber
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
