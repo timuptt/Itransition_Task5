@@ -10,6 +10,6 @@ public static class MiddleNameExtension
         if (locale != Regions.ru.ToString())
             return "";
         
-        return randomizer.ArrayElement(File.ReadAllLines($"Resources/{locale}_{person.Gender}.txt"));
+        return randomizer.ArrayElement(File.ReadAllLines($"FakeUserData.Web/Resources/{locale}_{person.Gender}.txt"));
     }
 }
