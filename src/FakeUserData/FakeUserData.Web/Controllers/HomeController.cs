@@ -27,6 +27,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
+        _logger.LogInformation($"{Directory.GetCurrentDirectory()}");
         return View();
     }
 
