@@ -22,4 +22,15 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\ru_Female.txt" />
+      <Resource Include="Resources\ru_Female.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\ru_Male.txt" />
+      <Resource Include="Resources\ru_Male.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+    </ItemGroup>
+
 </Project>
