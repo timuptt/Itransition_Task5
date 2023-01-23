@@ -4,30 +4,76 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <table class="table table-bordered">
+<div>
+    <div class="form-container mb-3">
+        <div class="form-content d-flex justify-content-between">
+            <div class="d-grid">
+                <div class="row">
+                    <label for="regionInput" class="form-label">Region</label>
+                </div>
+                <div class="row">
+                    <div class="col-xl">
+                        <select class="form-select" id="regionInput">
+                            <option value="0">Russia</option>
+                            <option value="1">USA</option>
+                            <option value="2">Poland</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl">
+                        <input type="range" class="form-range" id="errorsCountSlider" step="0.25" value="0" max="10"></input>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="errorsCountText" class="form-label">Mistakes per line</label>
+                </div>
+                <div class="row">
+                    <div class="col-xl">
+                        <input type="number" class="form-input form-control" id="errorsCountText" value="0" min="0" max="1000">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="seedInput" class="form-label">Seed</label>
+                </div>
+                <div class="row">
+                    <div class="col-xl mt-1">
+                        <input type="text" class="form-input form-control" id="seedInput">
+                    </div>
+                    <div class="col-sm mt-1 text-end">
+                        <button type="button" class="btn btn-primary" id="randomSeed">Random seed</button>
+                    </div>
+                    <div class="col-sm mt-1 text-end">
+                        <button type="button" class="btn btn-outline-success" id="createCsv">Download CSV</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable">
         <thead>
-        
+        <tr>
+            <td>
+                #
+            </td>
+            <td>
+                Id
+            </td>
+            <td>
+                Full Name
+            </td>
+            <td>
+                Address
+            </td>
+            <td>
+                Phone Number
+            </td>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var userData in Model)
-            {
-                <tr>
-                    <td>
-                        @userData.Id
-                    </td>
-                    <td>
-                        @userData.FullName
-                    </td>
-                    <td>
-                        @userData.Address
-                    </td>
-                    <td>
-                        @userData.PhoneNumber
-                    </td>
-                </tr>
-            }
         </tbody>
     </table>
 </div>
+    

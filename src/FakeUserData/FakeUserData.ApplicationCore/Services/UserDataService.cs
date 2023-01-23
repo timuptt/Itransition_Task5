@@ -1,27 +1,35 @@
 using Bogus;
+using Bogus.DataSets;
+using FakeUserData.ApplicationCore.Extensions;
 using FakeUserData.ApplicationCore.Interfaces;
 using FakeUserData.ApplicationCore.Models;
+using Address = FakeUserData.ApplicationCore.Models.Address;
 
 namespace FakeUserData.ApplicationCore.Services;
 
 public class UserDataService : IUserDataService
 {
-    public async Task<IEnumerable<UserData>> GetUserData(int seed, double issueRate, string locale, string country)
+    public IEnumerable<UserData> GetUserData(int seed, double mistakeRate, string locale)
     {
-        var fakeAddreses = new Faker<Address>(locale).UseSeed(seed)
-            .RuleFor(x => x.Country, x => country)
-            .RuleFor(x => x.State, x => x.Address.State())
-            .RuleFor(x => x.Street, x => x.Address.StreetAddress())
-            .RuleFor(x => x.HouseNumber, x => x.Address.BuildingNumber())
-            .RuleFor(x => x.FlatNumber, x => x.Address.SecondaryAddress());
+        var randomiser = new Randomizer(seed);
 
-            var fakeUserData = new Faker<UserData>("ru").UseSeed(seed)
-            .RuleFor(x => x.Id, x => x.Finance.Account())
-            .RuleFor(x => x.FirstName, x => x.Person.FirstName)
-            .RuleFor(x => x.MiddleName, x => "MiddleName")
-            .RuleFor(x => x.LastName, x => x.Person.LastName)
-            .RuleFor(x => x.AddressString, x => fakeAddreses.Generate().GetAddressStringVariants())
-            .RuleFor(x => x.PhoneNumber, x => x.Phone.PhoneNumberFormat())
+        var fakeAddresses = new Faker<Address>(locale).UseSeed(seed)
+            .RuleFor(a => a.State, f => f.Address.State())
+            .RuleFor(a => a.City, f => f.Address.City())
+            .RuleFor(a => a.Street, f => f.Address.StreetAddress())
+            .RuleFor(a => a.SecondAddress, f => f.Address.SecondaryAddress());
+
+        var fakeUserData = new Faker<UserData>(locale).UseSeed(seed)
+            .RuleFor(u => u.Id, f => f.Finance.Account())
+            .RuleFor(u => u.Gender, f => (int)f.PickRandom<Name.Gender>())
+            .RuleFor(u => u.FirstName, f => f.Person.FirstName)
+            .RuleFor(u => u.MiddleName, f => f.Person.GetGenderisedMiddleName(locale, randomiser))
+            .RuleFor(u => u.LastName, f => f.Person.LastName)
+            .RuleFor(u => u.AddressString, f => fakeAddresses.Generate().GetRandomisedAddressString(randomiser))
+            .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumberFormat())
+            .FinishWith((f, p) => p.MakeMistakes(mistakeRate, randomiser, locale))
             .GenerateForever();
+
+        return fakeUserData;
     }
 }
