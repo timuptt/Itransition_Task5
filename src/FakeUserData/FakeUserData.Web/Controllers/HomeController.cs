@@ -15,11 +15,14 @@ public class HomeController : Controller
     
     private readonly ILogger<HomeController> _logger;
     private readonly IUserDataService _userDataService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public HomeController(ILogger<HomeController> logger, IUserDataService userDataService)
+    public HomeController(ILogger<HomeController> logger, IUserDataService userDataService,
+        IWebHostEnvironment webHostEnvironment)
     {
         _logger = logger;
         _userDataService = userDataService;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     public async Task<IActionResult> Index()
@@ -29,10 +32,11 @@ public class HomeController : Controller
 
     public IActionResult GetData(RequestDataModel request)
     {
-        var data = _userDataService.GetUserData(request.Seed, request.MistakesRate, request.Region.ToString());
+        var data = _userDataService.GetUserData(request.Seed, request.MistakesRate, request.Region.ToString(),
+            _webHostEnvironment.WebRootPath);
         return Json(data.Skip((request.PageNumber - 1) * PageSize).Take(PageSize));
     }
-    
+
     [HttpPost]
     public IActionResult CreateCsv([FromBody]IEnumerable<UserData> persons)
     {

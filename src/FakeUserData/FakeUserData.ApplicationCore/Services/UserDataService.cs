@@ -9,7 +9,7 @@ namespace FakeUserData.ApplicationCore.Services;
 
 public class UserDataService : IUserDataService
 {
-    public IEnumerable<UserData> GetUserData(int seed, double mistakeRate, string locale)
+    public IEnumerable<UserData> GetUserData(int seed, double mistakeRate, string locale, string resourcesPath)
     {
         var randomiser = new Randomizer(seed);
 
@@ -23,7 +23,7 @@ public class UserDataService : IUserDataService
             .RuleFor(u => u.Id, f => f.Finance.Account())
             .RuleFor(u => u.Gender, f => (int)f.PickRandom<Name.Gender>())
             .RuleFor(u => u.FirstName, f => f.Person.FirstName)
-            .RuleFor(u => u.MiddleName, f => f.Person.GetGenderisedMiddleName(locale, randomiser))
+            .RuleFor(u => u.MiddleName, f => f.Person.GetGenderisedMiddleName(locale, randomiser, resourcesPath))
             .RuleFor(u => u.LastName, f => f.Person.LastName)
             .RuleFor(u => u.AddressString, f => fakeAddresses.Generate().GetRandomisedAddressString(randomiser))
             .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumberFormat())
