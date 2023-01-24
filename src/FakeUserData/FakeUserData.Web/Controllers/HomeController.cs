@@ -27,9 +27,8 @@ public class HomeController : Controller
     }
 
     
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        _logger.LogInformation($"{_webHostEnvironment.WebRootPath}");
         return View();
     }
     
@@ -42,7 +41,7 @@ public class HomeController : Controller
     }
     
     [HttpPost]
-    public IActionResult CreateCsv([FromBody]IEnumerable<UserData> persons)
+    public async Task<IActionResult> CreateCsv([FromBody]IEnumerable<UserData> persons)
     {
         var path = $"{Directory.GetCurrentDirectory()}{DateTime.Now.Ticks}.csv";
 
@@ -51,7 +50,7 @@ public class HomeController : Controller
         using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
         {
             csvWriter.Context.RegisterClassMap<UserDataCsvMap>();
-            csvWriter.WriteRecords(persons);
+            await csvWriter.WriteRecordsAsync(persons);
         }
 
         return PhysicalFile(path, "text/csv");
