@@ -1,5 +1,7 @@
+using System.Xml.Linq;
 using FakeUserData.ApplicationCore.Interfaces;
 using FakeUserData.ApplicationCore.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddScoped<IUserDataService, UserDataService>();
+
+builder.Services.AddCors(o => o.AddPolicy("AllPolicy", builder =>
+{
+    builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
 
 var app = builder.Build();
 
@@ -21,8 +30,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-
+app.UseCors("AllPolicy");
 app.UseRouting();
 
 app.UseAuthorization();

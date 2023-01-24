@@ -18,18 +18,13 @@
     }
 
     const getData = async () =>{
-        let url = new URL("Home/GetData", baseUrl);
+        let url = new URL("Home/GetData/", baseUrl);
         url.searchParams.append("region", regionSelect.value);
         url.searchParams.append("mistakesRate", mistakesInput.value);
         url.searchParams.append("pageNumber", currentPage);
         url.searchParams.append("seed", seedInput.value);
 
-        let response = await fetch(url, {
-            method: 'GET',
-            headers:{
-                'Content-Type': 'application/json;charset=utf-8'
-            }
-        })
+        let response = await fetch(url)
             .then(response => response.json());
 
         response.forEach((item) => {
