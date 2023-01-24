@@ -13,7 +13,7 @@ namespace FakeUserData.Web.Controllers;
 public class HomeController : Controller
 {
     private const int PageSize = 20;
-    
+
     private readonly IUserDataService _userDataService;
 
     public HomeController(IUserDataService userDataService)
@@ -25,22 +25,22 @@ public class HomeController : Controller
     {
         return View();
     }
-    
+
     [HttpGet]
     public IActionResult GetData(RequestDataModel request)
     {
         var data = _userDataService.GetUserData(request.Seed, request.MistakesRate, request.Region.ToString());
         return Json(data.Skip((request.PageNumber - 1) * PageSize).Take(PageSize));
     }
-    
+
     [HttpPost]
-    public async Task<IActionResult> CreateCsv([FromBody]IEnumerable<UserData> persons)
+    public async Task<IActionResult> CreateCsv([FromBody] IEnumerable<UserData> persons)
     {
         var path = $"{Directory.GetCurrentDirectory()}{DateTime.Now.Ticks}.csv";
 
-        using var writer = new StreamWriter(path);
+        await using var writer = new StreamWriter(path);
 
-        using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
+        await using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
         {
             csvWriter.Context.RegisterClassMap<UserDataCsvMap>();
             await csvWriter.WriteRecordsAsync(persons);

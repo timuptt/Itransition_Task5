@@ -1,7 +1,8 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 {
-    const baseUrl = "https://fakeuserdata.up.railway.app";
+    //https://fakeuserdata.up.railway.app
+    const baseUrl = "https://localhost:7200";
     const dataTable =  document.getElementById("dataTable");
     const mistakesSlider = document.getElementById("errorsCountSlider");
     const mistakesInput = document.getElementById("errorsCountText");
@@ -30,21 +31,11 @@
         response.forEach((item) => {
             currentData.push(item);
             let row = table.insertRow(dataTable.rows.length - 1);
-
-            let numberCell = row.insertCell();
-            numberCell.append(document.createTextNode(currentData.length))
-
-            let idCell = row.insertCell();
-            idCell.appendChild(document.createTextNode(item.id));
-
-            let nameCell = row.insertCell();
-            nameCell.appendChild(document.createTextNode(item.fullName));
-
-            let addressCell = row.insertCell();
-            addressCell.appendChild(document.createTextNode(`${item.addressString}`));
-
-            let phoneCell = row.insertCell();
-            phoneCell.appendChild(document.createTextNode(item.phoneNumber));
+            row.insertCell().append(document.createTextNode(currentData.length))
+            row.insertCell().appendChild(document.createTextNode(item.id));
+            row.insertCell().appendChild(document.createTextNode(item.fullName));
+            row.insertCell().appendChild(document.createTextNode(item.addressString));
+            row.insertCell().appendChild(document.createTextNode(item.phoneNumber));
         });
 
         currentPage++;
@@ -72,7 +63,6 @@
         document.getElementsByTagName("tbody")[0].innerHTML = "";
         currentPage = 1;
         currentData = [];
-
         getData();
     }
 
@@ -90,7 +80,7 @@
 
     mistakesInput.oninput = (event) => {
         if (Number.isInteger(Number(event.target.value))) {
-            mistakesSlider.value = event.target.value / 10;
+            mistakesSlider.value = event.target.value;
         } else {
             mistakesSlider.value = 0;
         }
@@ -111,7 +101,7 @@
         if (mistakesInput.value === "") {
             mistakesSlider.value = 0;
         }
-        if (mistakesInput.value <= 10) {
+        else if (mistakesInput.value <= 10) {
             mistakesSlider.value = mistakesInput.value
         }
         handleInputChange();
