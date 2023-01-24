@@ -77,7 +77,7 @@
     }
 
     window.addEventListener('scroll', () => {
-        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight ){
+        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight ){
             return;
         }
         else{
