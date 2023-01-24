@@ -12,6 +12,6 @@ public static class MiddleNameExtension
             return "";
         
         return randomizer.ArrayElement(File.ReadAllLines(
-            Path.Combine(resourcesPath, $"Resources/{locale}_{person.Gender}.txt")));
+            Path.Combine($"Resources/{locale}_{person.Gender}.txt")));
     }
 }
