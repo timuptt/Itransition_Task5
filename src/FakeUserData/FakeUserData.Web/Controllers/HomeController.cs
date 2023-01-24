@@ -14,19 +14,13 @@ public class HomeController : Controller
 {
     private const int PageSize = 20;
     
-    private readonly ILogger<HomeController> _logger;
     private readonly IUserDataService _userDataService;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public HomeController(ILogger<HomeController> logger, IUserDataService userDataService,
-        IWebHostEnvironment webHostEnvironment)
+    public HomeController(IUserDataService userDataService)
     {
-        _logger = logger;
         _userDataService = userDataService;
-        _webHostEnvironment = webHostEnvironment;
     }
 
-    
     public IActionResult Index()
     {
         return View();
@@ -35,8 +29,7 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult GetData(RequestDataModel request)
     {
-        var data = _userDataService.GetUserData(request.Seed, request.MistakesRate, request.Region.ToString(),
-            _webHostEnvironment.WebRootPath);
+        var data = _userDataService.GetUserData(request.Seed, request.MistakesRate, request.Region.ToString());
         return Json(data.Skip((request.PageNumber - 1) * PageSize).Take(PageSize));
     }
     
