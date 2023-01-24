@@ -9,6 +9,7 @@ using FakeUserData.Web.Models;
 
 namespace FakeUserData.Web.Controllers;
 
+[RequireHttps]
 public class HomeController : Controller
 {
     private const int PageSize = 20;
@@ -25,6 +26,7 @@ public class HomeController : Controller
         _webHostEnvironment = webHostEnvironment;
     }
 
+    
     public async Task<IActionResult> Index()
     {
         _logger.LogInformation($"{_webHostEnvironment.WebRootPath}");
