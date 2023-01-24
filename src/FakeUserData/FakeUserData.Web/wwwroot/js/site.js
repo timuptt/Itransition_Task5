@@ -80,9 +80,11 @@
 
     mistakesInput.oninput = (event) => {
         if (Number.isInteger(Number(event.target.value))) {
-            mistakesSlider.value = event.target.value;
+            if(event.target.value <= 10){
+                mistakesSlider.value = event.target.value;
+            }
         } else {
-            mistakesSlider.value = 0;
+            mistakesSlider.value = 10;
         }
 
         handleInputChange();
@@ -103,6 +105,9 @@
         }
         else if (mistakesInput.value <= 10) {
             mistakesSlider.value = mistakesInput.value
+        }
+        else{
+            mistakesSlider.value = 10
         }
         handleInputChange();
     }
