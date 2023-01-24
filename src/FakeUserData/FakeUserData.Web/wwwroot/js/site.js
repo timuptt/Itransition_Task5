@@ -68,64 +68,62 @@
         }
     }
 
-    handleInputChange = () => {
+    handleInputChange = async () => {
         document.getElementsByTagName("tbody")[0].innerHTML = "";
         currentPage = 1;
         currentData = [];
 
-        getData();
+        await getData();
     }
 
-    window.addEventListener('scroll', () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight ){
+    window.addEventListener('scroll', async () => {
+        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) {
             return;
-        }
-        else{
-            getData();
+        } else {
+            await getData();
         }
     });
 
-    window.addEventListener('load', () =>{
-        getData();
+    window.addEventListener('load', async () => {
+        await getData();
     });
 
-    mistakesInput.oninput = (event) => {
-        if(Number.isInteger(Number(event.target.value))){
+    mistakesInput.oninput = async (event) => {
+        if (Number.isInteger(Number(event.target.value))) {
             mistakesSlider.value = event.target.value / 10;
-        }
-        else{
+        } else {
             mistakesSlider.value = 0;
         }
 
-        handleInputChange();
+        await handleInputChange();
     }
 
-    regionSelect.onchange = () => {
-        handleInputChange();
+    regionSelect.onchange = async () => {
+        await handleInputChange();
     }
 
-    mistakesSlider.onclick = (event) => {
+    mistakesSlider.onclick = async (event) => {
         mistakesInput.value = event.target.value;
-        handleInputChange();
+        await handleInputChange();
     }
 
-    mistakesInput.oninput = () => {
-        if (mistakesInput.value === ""){
+    mistakesInput.oninput = async () => {
+        if (mistakesInput.value === "") {
             mistakesSlider.value = 0;
         }
-        if (mistakesInput.value <= 10){
+        if (mistakesInput.value <= 10) {
             mistakesSlider.value = mistakesInput.value
         }
-        handleInputChange();
+        await handleInputChange();
     }
 
-    seedInput.oninput = () => {
-        handleInputChange();
+    seedInput.oninput = async () => {
+        await handleInputChange();
     }
 
-    randomSeed.onclick = () =>{
+    randomSeed.onclick = async () => {
         seedInput.value = getRandomInt(9999999);
-        handleInputChange();
+        await handleInputChange();
     }
 
     createCsv.onclick = async () =>{
