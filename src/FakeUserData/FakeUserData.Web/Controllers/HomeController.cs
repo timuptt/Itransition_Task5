@@ -33,7 +33,6 @@ public class HomeController : Controller
         return View();
     }
     
-    [RequireHttps]
     [HttpGet]
     public IActionResult GetData(RequestDataModel request)
     {
@@ -41,8 +40,7 @@ public class HomeController : Controller
             _webHostEnvironment.WebRootPath);
         return Json(data.Skip((request.PageNumber - 1) * PageSize).Take(PageSize));
     }
-
-    [RequireHttps]
+    
     [HttpPost]
     public IActionResult CreateCsv([FromBody]IEnumerable<UserData> persons)
     {
