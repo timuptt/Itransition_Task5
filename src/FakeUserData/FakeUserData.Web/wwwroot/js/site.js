@@ -24,7 +24,12 @@
         url.searchParams.append("pageNumber", currentPage);
         url.searchParams.append("seed", seedInput.value);
 
-        let response = await fetch(url)
+        let response = await fetch(url, {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
             .then(response => response.json());
 
         response.forEach((item) => {

@@ -30,7 +30,8 @@ public class HomeController : Controller
         _logger.LogInformation($"{_webHostEnvironment.WebRootPath}");
         return View();
     }
-
+    
+    [HttpGet]
     public IActionResult GetData(RequestDataModel request)
     {
         var data = _userDataService.GetUserData(request.Seed, request.MistakesRate, request.Region.ToString(),
