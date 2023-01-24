@@ -17,7 +17,12 @@ public class UserDataService : IUserDataService
     private Faker<UserData> GenerateFakeUserData(int seed, double mistakeRate, string locale)
     {
         var randomizer = new Randomizer(seed);
-        var fakeAddresses = GenerateFakeAddresses(seed, locale);
+        
+        var fakeAddresses = new Faker<Address>(locale).UseSeed(seed)
+            .RuleFor(a => a.State, f => f.Address.State())
+            .RuleFor(a => a.City, f => f.Address.City())
+            .RuleFor(a => a.Street, f => f.Address.StreetAddress())
+            .RuleFor(a => a.SecondAddress, f => f.Address.SecondaryAddress());;
         
         var fakeUserData = new Faker<UserData>(locale).UseSeed(seed)
             .RuleFor(u => u.Id, f => f.Finance.Account())
@@ -30,15 +35,5 @@ public class UserDataService : IUserDataService
             .FinishWith((f, p) => p.MakeMistakes(mistakeRate, randomizer, locale));
             
         return fakeUserData;
-    }
-
-    private Faker<Address> GenerateFakeAddresses(int seed, string locale)
-    {
-        var fakeAddresses = new Faker<Address>(locale).UseSeed(seed)
-            .RuleFor(a => a.State, f => f.Address.State())
-            .RuleFor(a => a.City, f => f.Address.City())
-            .RuleFor(a => a.Street, f => f.Address.StreetAddress())
-            .RuleFor(a => a.SecondAddress, f => f.Address.SecondaryAddress());
-        return fakeAddresses;
     }
 }
