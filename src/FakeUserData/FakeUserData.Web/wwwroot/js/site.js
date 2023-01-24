@@ -1,8 +1,7 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 {
-    //https://fakeuserdata.up.railway.app
-    const baseUrl = "https://localhost:7200";
+    const baseUrl = "https://fakeuserdata.up.railway.app";
     const dataTable =  document.getElementById("dataTable");
     const mistakesSlider = document.getElementById("errorsCountSlider");
     const mistakesInput = document.getElementById("errorsCountText");
